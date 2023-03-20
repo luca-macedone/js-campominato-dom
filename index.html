@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Campo Minato | Boolean</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FontAwesome 6.2.0 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap 5.2.3 css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- Bootstrap 5.2.3 js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <!-- My style -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+    <header id="app_header">
+        <nav class="navbar h-100 bg-transparent">
+            <div class="container justify-content-between">
+                <a class="navbar-brand" href="#">
+                    <img src="./assets/img/mobile-logo.png" alt="Logo Boolean" class="img-fluid d-inline-block align-text-middle">
+                    <!-- /img #Logo -->
+                    <h1 class="d-inline-block fw-bold fs-2">Campo Minato</h1>
+                    <!-- /h1 -->
+                </a>
+                <!-- /.navbar-brand -->
+                <form class="d-flex gap-1 align-items-center">
+                    <label for="difficulty-selection">Difficulty: </label>
+                    <select class="form-select" name="difficulty-selection" id="difficulty-selection">
+                        <option value="easy" selected>Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-dark" id="play-btn">Play</button>
+                    <!-- /.btn #play-btn -->
+                </form>
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!-- /.nav -->
+    </header>
+    <!-- /#app_header -->
+    <main id="app_main">
+        <div class="ms-container">
+            <div class="ms-row">
+                <!--
+                <div class="ms-col">
+                    <span class="box-index fs-4">1</span>
+                </div>
+                -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </main>
+    <!-- /#app_main -->
+    <footer id="app_footer">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col d-flex align-items-center">
+                    <span class="ms-3">
+                        Made with
+                        <i class="fa-solid fa-heart"></i>
+                        by
+                        <a href="#">Boolean</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /#app_footer -->
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

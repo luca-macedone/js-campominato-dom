@@ -1,0 +1,56 @@
+.ms-container {
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+}
+
+.ms-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ms-width-10 {
+    width: calc(100% / 10);
+}
+
+.ms-width-9 {
+    width: calc(100% / 9);
+}
+
+.ms-width-7 {
+    width: calc(100% / 7);
+}
+
+.ms-col {
+    aspect-ratio: 1 / 1;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ms-bg-active {
+    background-color: rgb(94, 242, 252);
+}
+
+#app_header .navbar-brand {
+    width: 60px;
+    align-self: center;
+}
+
+#app_header,
+#app_footer 
+{
+    height: 80px;
+}
+
+#app_main {
+    min-height: calc(100vh - 160px);
+    background-color: #34ffd1;
+    padding: 5rem;
+}
+
+#app_header h1 {
+    vertical-align: sub;
+}
