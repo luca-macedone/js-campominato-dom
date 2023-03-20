@@ -24,6 +24,13 @@
 const rowEl = document.querySelector('#app_main .ms-row');
 const maxNumberOfBombs = 16;
 
+const closeBtn = document.querySelector('#close_btn');
+const maskEl = document.querySelector('#app_main > .mask');
+closeBtn.addEventListener('click', function(){
+    maskEl.classList.toggle('d-none');
+    clearGrid();
+});
+
 
 const submitBtn = document.querySelector('#play-btn');
 submitBtn.addEventListener('click', function(e){
@@ -35,19 +42,26 @@ submitBtn.addEventListener('click', function(e){
     
     const boxesEl = document.querySelectorAll('.ms-col');
     let bombsPosition = [];
-
+    let score = 0;
+    console.log(`bombsPosition`, bombsPosition);
     bombsPosition = generateBombs(maxCells, bombsPosition);
     
-    console.log(bombsPosition);
     for(let i=0; i<boxesEl.length; i++){
         boxesEl[i].addEventListener("click", function(){
-            // TODO create game loop
-            //changeBgColor(this);
-            //printNumber(i);
             if(checkBomb(i, bombsPosition)){
                 changeBgColor(this, 'failure');
+                printNumber(i, true);
+                endGame(score, 'lose');
+                score = 0;
             }else{
                 changeBgColor(this, 'success');
+                printNumber(i, false);
+                if(score == bombsPosition.length - maxNumberOfBombs - 1){
+                    endGame(score, 'win');
+                    score = 0;
+                }else{
+                    score++;
+                }
             }
         });
     }
@@ -119,16 +133,26 @@ function clearGrid(){
  */
 function changeBgColor(element, colorToUse){
     if(colorToUse === 'success'){
-        element.classList.toggle('bg-transparent');
-        element.classList.toggle('ms-bg-success'); 
+        element.classList.remove('bg-transparent');
+        element.classList.add('ms-bg-success'); 
     }else{
-        element.classList.toggle('bg-transparent');
-        element.classList.toggle('ms-bg-danger'); 
+        element.classList.remove('bg-transparent');
+        element.classList.add('ms-bg-danger'); 
     }
 }
 
-function printNumber(index){
-    console.log(`The box clicked is the number ${index+1}`);
+/**
+ * ## Print Number
+ * Prints in console the index of the box clicked and a status string
+ * @param {Number} index 
+ * @param {Boolean} isBomb 
+ */
+function printNumber(index, isBomb){
+    if(isBomb){
+        console.log(`The box ${index+1} is a Bomb!`);
+    }else{
+        console.log(`The box ${index+1} is a Flower!`);
+    }
 }
 
 /**
@@ -180,4 +204,18 @@ function checkBomb(index, array){
  */
 function randomValue(min, max){
     return Math.floor(Math.random() * (max - min) + min);
+}
+
+/**
+ * ## End Game
+ * creates the end game event with the print of the final score
+ * @param {Number} score 
+ */
+function endGame(score, gameResult){
+    const scoreEl = document.querySelector('#score');
+    const resultEl = document.querySelector('#result-message');
+
+    resultEl.innerHTML = `You ${gameResult}!`;
+    maskEl.classList.toggle('d-none');
+    scoreEl.innerHTML = `${score}`;
 }
