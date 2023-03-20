@@ -39,11 +39,11 @@ submitBtn.addEventListener('click', function(e){
     let maxCells = setDifficulty(difficultyValue);
     clearGrid();
     createGrid(maxCells);
-    
+    //console.log('maxCells', maxCells);
     const boxesEl = document.querySelectorAll('.ms-col');
     let bombsPosition = [];
     let score = 0;
-    console.log(`bombsPosition`, bombsPosition);
+    //console.log(`bombsPosition`, bombsPosition);
     bombsPosition = generateBombs(maxCells, bombsPosition);
     
     for(let i=0; i<boxesEl.length; i++){
@@ -54,7 +54,11 @@ submitBtn.addEventListener('click', function(e){
                 endGame(score, 'lose');
                 score = 0;
             }else{
-                changeBgColor(this, 'success');
+                if(haveAdiacentBombs(i, bombsPosition, maxCells)){
+                    changeBgColor(this, 'near');
+                }else{
+                    changeBgColor(this, 'success');
+                }
                 printNumber(i, false);
                 if(score == bombsPosition.length - maxNumberOfBombs - 1){
                     endGame(score, 'win');
@@ -65,7 +69,7 @@ submitBtn.addEventListener('click', function(e){
             }
         });
     }
-})
+});
 
 /**
  * ## Set Difficulty
@@ -135,6 +139,9 @@ function changeBgColor(element, colorToUse){
     if(colorToUse === 'success'){
         element.classList.remove('bg-transparent');
         element.classList.add('ms-bg-success'); 
+    }else if(colorToUse === 'near'){
+        element.classList.remove('bg-transparent');
+        element.classList.add('ms-bg-alert'); 
     }else{
         element.classList.remove('bg-transparent');
         element.classList.add('ms-bg-danger'); 
@@ -218,4 +225,52 @@ function endGame(score, gameResult){
     resultEl.innerHTML = `You ${gameResult}!`;
     maskEl.classList.toggle('d-none');
     scoreEl.innerHTML = `${score}`;
+}
+
+// ! bonus dei bonus
+// funzione per verifcare se attorno alla casella cliccata ci sia una bomba
+// prendo in input l'indice della casella cliccata
+// faccio una verifica sulla casella subito dopo e subito prima
+// faccio un controllo sulle caselle dopo di +10 e prima di -10 per avere la casella superiore e inferiore
+// devo avere come controllo che non sia una casella ai bordi, in prima riga o nell'ultima, in tal caso non devo eseguire certi controlli.
+
+/**
+ * ## Have adiacent Bombs
+ * Verify if in the cross near the index, we have a bomb
+ * @param {Number} i 
+ * @param {Array} array 
+ * @param {Number} max 
+ * @returns 
+ */
+function haveAdiacentBombs(i, array, max){
+    let numberOfCols = Math.sqrt(max);
+    //console.log(numberOfCols, ' number of cols');
+    //console.log(max, ' max');
+    let nearBomb = false;
+    switch(true){
+        case (i == 0): // prima posizione
+            if(checkBomb(i + 1, array)){
+                return nearBomb = true;
+            }else if(checkBomb(i + numberOfCols, array)){
+                return nearBomb = true;
+            }else return nearBomb;
+        case (i == array.length - 1): // ultima posizione
+            if(checkBomb(i - 1, array)){
+                return nearBomb = true;
+            }else if(checkBomb(i - numberOfCols, array)){
+                return nearBomb = true;
+            }else return nearBomb;
+        case (i <= numberOfCols): // prima riga
+            if(checkBomb(i + 1, array) || checkBomb(i - 1, array) || checkBomb(i + numberOfCols, array)){
+                return nearBomb = true;
+            }else return nearBomb;
+        case (i >= ((array.length - 1) - numberOfCols)): // ultima riga
+            if(checkBomb(i + 1, array) || checkBomb(i - 1, array) || checkBomb(i - numberOfCols, array)){
+                return nearBomb = true;
+            }else return nearBomb;
+        default:
+            if(checkBomb(i + 1, array) || checkBomb(i - 1, array) || checkBomb(i + numberOfCols, array) || checkBomb(i - numberOfCols, array)){
+                return nearBomb = true;
+            }else return nearBomb;
+    }
 }

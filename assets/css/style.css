@@ -28,10 +28,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: .25s all ease-in-out;
+}
+
+.ms-col:hover {
+    border: 3px solid;
 }
 
 .ms-bg-success {
     background-color: rgb(94, 242, 252);
+}
+
+.ms-bg-alert {
+    background-color: rgb(252, 220, 94);
 }
 
 .ms-bg-danger {
