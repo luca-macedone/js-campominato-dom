@@ -268,7 +268,7 @@ function haveAdiacentBombs(i, array, max){
             if(checkBomb(i + 1, array) || checkBomb(i - 1, array) || checkBomb(i - numberOfCols, array)){
                 return nearBomb = true;
             }else return nearBomb;
-        default:
+        default: // punto generico e centrale dell'array
             if(checkBomb(i + 1, array) || checkBomb(i - 1, array) || checkBomb(i + numberOfCols, array) || checkBomb(i - numberOfCols, array)){
                 return nearBomb = true;
             }else return nearBomb;
