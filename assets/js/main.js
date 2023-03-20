@@ -23,7 +23,7 @@
 
 const rowEl = document.querySelector('#app_main .ms-row');
 const maxNumberOfBombs = 16;
-let bombsPosition = [];
+
 
 const submitBtn = document.querySelector('#play-btn');
 submitBtn.addEventListener('click', function(e){
@@ -34,12 +34,21 @@ submitBtn.addEventListener('click', function(e){
     createGrid(maxCells);
     
     const boxesEl = document.querySelectorAll('.ms-col');
-    generateBombs(maxCells);
+    let bombsPosition = [];
 
+    bombsPosition = generateBombs(maxCells, bombsPosition);
+    
+    console.log(bombsPosition);
     for(let i=0; i<boxesEl.length; i++){
         boxesEl[i].addEventListener("click", function(){
-            changeBgColor(this);
-            printNumber(i);
+            // TODO create game loop
+            //changeBgColor(this);
+            //printNumber(i);
+            if(checkBomb(i, bombsPosition)){
+                changeBgColor(this, 'failure');
+            }else{
+                changeBgColor(this, 'success');
+            }
         });
     }
 })
@@ -104,12 +113,18 @@ function clearGrid(){
 
 /**
  * ## Change Background Color
- * Given an Html Element, changes is bg-class with the special bg class
+ * Given an Html Element, changes is bg-class with the special bg class 
  * @param {HTMLElement} element 
+ * @param {String} colorToUse
  */
-function changeBgColor(element){
-    element.classList.toggle('bg-transparent');
-    element.classList.toggle('ms-bg-danger'); // TODO mettere condizione di gioco
+function changeBgColor(element, colorToUse){
+    if(colorToUse === 'success'){
+        element.classList.toggle('bg-transparent');
+        element.classList.toggle('ms-bg-success'); 
+    }else{
+        element.classList.toggle('bg-transparent');
+        element.classList.toggle('ms-bg-danger'); 
+    }
 }
 
 function printNumber(index){
@@ -120,24 +135,40 @@ function printNumber(index){
  * ## Generate Bombs
  * Creates an array of bombs with random position, it takes in input te length of the array 
  * @param {Number} arrayLength 
+ * @param {Array} array 
+ * @returns
  */
-function generateBombs(arrayLength){
-    bombsPosition.length = 0;
+function generateBombs(arrayLength, array){
+    array.length = 0;
     
     let bombsCounter = 0;
 
-    bombsPosition.length = arrayLength;
-    console.log(`bombsPosition.length`, bombsPosition.length);
-    console.log(`bombsPosition`, bombsPosition);
+    array.length = arrayLength;
     
     while(bombsCounter < maxNumberOfBombs){
         let randomIndex = randomValue(0, arrayLength - 1);  
-        if(bombsPosition[randomIndex] != 'bomb'){
-            bombsPosition[randomIndex] = 'bomb';
+        if(array[randomIndex] != 'bomb'){
+            array[randomIndex] = 'bomb';
             bombsCounter++;
         }else continue;
     }
-    console.log(`bombsPosition array`, bombsPosition);
+    return array;
+}
+
+/**
+ * ## Bheck Bomb
+ * verify if in index position of the array contains a bomb
+ * @param {Number} index 
+ * @param {Array} array 
+ * @returns
+ */
+function checkBomb(index, array){
+    if(array[index] == 'bomb') {
+        return true;
+    }
+    else{
+        return false;
+    } 
 }
 
 /**
