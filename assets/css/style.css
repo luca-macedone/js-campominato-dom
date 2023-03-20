@@ -30,8 +30,12 @@
     align-items: center;
 }
 
-.ms-bg-active {
+.ms-bg-success {
     background-color: rgb(94, 242, 252);
+}
+
+.ms-bg-danger {
+    background-color: red;
 }
 
 #app_header .navbar-brand {

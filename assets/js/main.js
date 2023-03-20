@@ -22,6 +22,8 @@
 */
 
 const rowEl = document.querySelector('#app_main .ms-row');
+const maxNumberOfBombs = 16;
+let bombsPosition = [];
 
 const submitBtn = document.querySelector('#play-btn');
 submitBtn.addEventListener('click', function(e){
@@ -32,7 +34,8 @@ submitBtn.addEventListener('click', function(e){
     createGrid(maxCells);
     
     const boxesEl = document.querySelectorAll('.ms-col');
-    
+    generateBombs(maxCells);
+
     for(let i=0; i<boxesEl.length; i++){
         boxesEl[i].addEventListener("click", function(){
             changeBgColor(this);
@@ -40,10 +43,6 @@ submitBtn.addEventListener('click', function(e){
         });
     }
 })
-
-
-
-
 
 /**
  * ## Set Difficulty
@@ -91,7 +90,7 @@ function createGrid(max){
                 <span class="box-index fs-4">${i+1}</span>
             </div>
         `
-        console.log(setTableSize(max));
+        //console.log(setTableSize(max));
     }
 }
 
@@ -110,9 +109,44 @@ function clearGrid(){
  */
 function changeBgColor(element){
     element.classList.toggle('bg-transparent');
-    element.classList.toggle('ms-bg-active');
+    element.classList.toggle('ms-bg-danger'); // TODO mettere condizione di gioco
 }
 
 function printNumber(index){
     console.log(`The box clicked is the number ${index+1}`);
+}
+
+/**
+ * ## Generate Bombs
+ * Creates an array of bombs with random position, it takes in input te length of the array 
+ * @param {Number} arrayLength 
+ */
+function generateBombs(arrayLength){
+    bombsPosition.length = 0;
+    
+    let bombsCounter = 0;
+
+    bombsPosition.length = arrayLength;
+    console.log(`bombsPosition.length`, bombsPosition.length);
+    console.log(`bombsPosition`, bombsPosition);
+    
+    while(bombsCounter < maxNumberOfBombs){
+        let randomIndex = randomValue(0, arrayLength - 1);  
+        if(bombsPosition[randomIndex] != 'bomb'){
+            bombsPosition[randomIndex] = 'bomb';
+            bombsCounter++;
+        }else continue;
+    }
+    console.log(`bombsPosition array`, bombsPosition);
+}
+
+/**
+ * ## Random Value
+ * return a random value between min and max
+ * @param {Number} min 
+ * @param {Number} max 
+ * @returns 
+ */
+function randomValue(min, max){
+    return Math.floor(Math.random() * (max - min) + min);
 }
