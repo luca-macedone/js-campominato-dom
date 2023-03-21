@@ -50,14 +50,18 @@ submitBtn.addEventListener('click', function(e){
         boxesEl[i].addEventListener("click", function(){
             if(checkBomb(i, bombsPosition)){
                 changeBgColor(this, 'failure');
+                displayImgs(this, 'bomb');
                 printNumber(i, true);
                 endGame(score, 'lose');
+                displayAllBombs(bombsPosition);
                 score = 0;
             }else{
                 if(haveAdiacentBombs(i, bombsPosition, maxCells)){
                     changeBgColor(this, 'near');
+                    displayImgs(this, 'flower');
                 }else{
                     changeBgColor(this, 'success');
+                    displayImgs(this, 'flower');
                 }
                 printNumber(i, false);
                 if(score == bombsPosition.length - maxNumberOfBombs - 1){
@@ -272,5 +276,33 @@ function haveAdiacentBombs(i, array, max){
             if(checkBomb(i + 1, array) || checkBomb(i - 1, array) || checkBomb(i + numberOfCols, array) || checkBomb(i - numberOfCols, array)){
                 return nearBomb = true;
             }else return nearBomb;
+    }
+}
+
+/**
+ * ## Display Images
+ * Displays a flower or a bomb inside the cell
+ * @param {HTMLElement} cell 
+ * @param {String} type 
+ */
+function displayImgs(cell, type){
+    if(type == 'flower'){
+        cell.innerHTML = `<img src="/assets/img/flower.png" height="25" width="25" class"img-fluid" alt="Flower" />`;
+    } else if(type == 'bomb'){
+        cell.innerHTML = `<img src="/assets/img/bomb.png" height="25" width="25" class"img-fluid" alt="Bomb" />`;
+    } 
+}
+
+function displayAllBombs(array){
+    const cells = document.querySelectorAll('.ms-col');
+    for(let i = 0; i<cells.length; i++){
+        if(array[i] == 'bomb'){
+            changeBgColor(cells[i], 'failure');
+            displayImgs(cells[i], 'bomb');
+        }
+        else{
+            changeBgColor(cells[i], 'success');
+            displayImgs(cells[i], 'flower');
+        }
     }
 }
