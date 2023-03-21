@@ -66,6 +66,7 @@ submitBtn.addEventListener('click', function(e){
                 printNumber(i, false);
                 if(score == bombsPosition.length - maxNumberOfBombs - 1){
                     endGame(score, 'win');
+                    displayAllBombs(bombsPosition);
                     score = 0;
                 }else{
                     score++;
