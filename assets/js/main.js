@@ -288,9 +288,9 @@ function haveAdiacentBombs(i, array, max){
  */
 function displayImgs(cell, type){
     if(type == 'flower'){
-        cell.innerHTML = `<img src="./assets/img/flower.png" height="25" width="25" class"img-fluid" alt="Flower" />`;
+        cell.innerHTML = `<img src="./../img/flower.png" height="25" width="25" class"img-fluid" alt="Flower" />`;
     } else if(type == 'bomb'){
-        cell.innerHTML = `<img src="./assets/img/bomb.png" height="25" width="25" class"img-fluid" alt="Bomb" />`;
+        cell.innerHTML = `<img src="./../img/bomb.png" height="25" width="25" class"img-fluid" alt="Bomb" />`;
     } 
 }
 
